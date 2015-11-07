@@ -13,8 +13,3 @@
 . ;  // Ignore everything else.
 
 %%
-
-main() {
-  yylex();
-}
-
