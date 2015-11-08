@@ -1,12 +1,18 @@
+%{
+#include "y.tab.h"
+%}
+
 %%
 
-not { printf("NOT: %s\n", yytext); }
-or  { printf("OR: %s\n", yytext); }
-and { printf("AND: %s\n", yytext); }
-\(  { printf("LPAREN: %s\n", yytext); }
-\)  { printf("RPAREN: %s\n", yytext); }
-false { printf("FALSE: %s\n", yytext); }
-true  { printf("TRUE: %s\n", yytext); }
+not { return NOT; }
+or  { return OR; }
+and { return AND; }
+\(  { return LPAREN; }
+\)  { return RPAREN; }
+false { return FALSE; }
+true  { return TRUE; }
+
+\.\n { return 0; }
 
 . ;  // Ignore everything else.
 
