@@ -12,7 +12,7 @@ and { return AND; }
 false { return FALSE; }
 true  { return TRUE; }
 
-\.\n { return 0; }
+\n { return 0; }
 
 . ;  // Ignore everything else.
 
