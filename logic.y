@@ -7,29 +7,20 @@
 
 %%
 
-expr	: literal
-	| unary
-	| binary
-	| parens
-	{ printf("Parsed expr.\n"); }
-	;
+start	: expr {
+    if ($1) {
+      printf("true\n");
+    } else {
+      printf("false\n");
+    }
+  }
 
-literal	: TRUE
-	| FALSE
-	{ printf("Parsed literal.\n"); }
-	;
-
-unary	: NOT expr
-	{ printf("Parsed not expr.\n"); }
-	;
-
-binary	: expr AND expr
-	| expr OR expr
-	{ printf("Parsed binary expr.\n"); }
-	;
-
-parens	: LPAREN expr RPAREN
-	{ printf("Parsed paren expr.\n"); }
+expr	: NOT expr { $$ = ! $2; printf("not expr, ! %d = %d\n", $2, !$2); }
+	| expr AND expr { $$ = ($1 && $3); }
+	| expr OR expr { $$ = ($1 || $3); }
+	| LPAREN expr RPAREN { $$ = $2; }
+	| TRUE { $$ = $1; }
+	| FALSE {$$ = $1; }
 	;
 
 %%
@@ -37,8 +28,10 @@ parens	: LPAREN expr RPAREN
 extern FILE *yyin;
 
 int main() {
-  yyparse();
-  printf("Called yyparse once; terminating.\n"); 
+  do {
+    printf("> ");
+    yyparse();
+  } while (!feof(yyin));
 }
 
 yyerror(s) char *s; {

@@ -9,8 +9,8 @@ or  { return OR; }
 and { return AND; }
 \(  { return LPAREN; }
 \)  { return RPAREN; }
-false { return FALSE; }
-true  { return TRUE; }
+false { yylval = 0; return FALSE; }
+true  { yylval = 1; return TRUE; }
 
 \n { return 0; }
 
