@@ -4,6 +4,9 @@
 %}
 
 %token TRUE FALSE AND OR NOT LPAREN RPAREN
+%left OR
+%left AND
+%left NOT
 
 %%
 
