@@ -9,10 +9,10 @@ or  { return OR; }
 and { return AND; }
 \(  { return LPAREN; }
 \)  { return RPAREN; }
-false { yylval = 0; return FALSE; }
-true  { yylval = 1; return TRUE; }
+false { return FALSE; }
+true  { return TRUE; }
 
-\n { return 0; }
+\n { return 0; }  // end marker
 
 . ;  // Ignore everything else.
 
