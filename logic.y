@@ -1,15 +1,21 @@
 %{
 #include <stdio.h>
+
+struct symbol_entry {
+  char *name;
+};
+
 %}
 
-%token TRUE FALSE AND OR NOT LPAREN RPAREN
+%token TRUE FALSE AND OR NOT
 %left OR
 %left AND
 %left NOT
 
 %%
 
-start	: expr {
+start	: statement { printf($1); }
+	| expr {
 	  if ($1) {
 	    printf("true\n");
 	  } else {
@@ -20,7 +26,7 @@ start	: expr {
 expr	: NOT expr { $$ = ! $2; }
 	| expr AND expr { $$ = ($1 && $3); }
 	| expr OR expr { $$ = ($1 || $3); }
-	| LPAREN expr RPAREN { $$ = $2; }
+	| '(' expr ')' { $$ = $2; }
 	| TRUE { $$ = 1; }
 	| FALSE { $$ = 0; }
 	;

@@ -7,13 +7,13 @@
 not { return NOT; }
 or  { return OR; }
 and { return AND; }
-\(  { return LPAREN; }
-\)  { return RPAREN; }
 false { return FALSE; }
 true  { return TRUE; }
 
-\n { return 0; }  // end marker
+\n { return 0; }  // End marker.
 
-. ;  // Ignore everything else.
+" " ;  // Ignore spaces.
+
+. { return yytext[0]; }
 
 %%
