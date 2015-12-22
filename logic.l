@@ -9,6 +9,7 @@ or  { return OR; }
 and { return AND; }
 \(  { return LPAREN; }
 \)  { return RPAREN; }
+=   { return ASSIGN; }
 false { return FALSE; }
 true  { return TRUE; }
 

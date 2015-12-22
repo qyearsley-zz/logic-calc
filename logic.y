@@ -11,7 +11,8 @@ void reset_table();
 
 %}
 
-%token AND OR NOT TRUE FALSE NAME LPAREN RPAREN
+%token AND OR NOT TRUE FALSE LPAREN RPAREN
+%token NAME ASSIGN
 %left OR
 %left AND
 %left NOT
@@ -25,13 +26,13 @@ start	: stmt { printf($1 ? "true\n" : "false\n"); }
 expr	: NOT expr { $$ = ! $2; }
 	| expr AND expr { $$ = ($1 && $3); }
 	| expr OR expr { $$ = ($1 || $3); }
-	| '(' expr ')' { $$ = $2; }
+	| LPAREN expr RPAREN { $$ = $2; }
 	| NAME { $$ = lookup($1); }
 	| FALSE { $$ = 0; }
 	| TRUE { $$ = 1; }
 	;
 
-stmt	: NAME '=' expr { set($1, $3); $$ = $3; }
+stmt	: NAME ASSIGN expr { set($1, $3); $$ = $3; }
 	;
 
 %%
@@ -52,6 +53,7 @@ yyerror(s) char *s; {
 }
 
 int lookup(int symbol_num) {
+  printf("lookup %d\n", symbol_num);
   if (SYMBOL_TABLE[symbol_num] == UNSET ||
       symbol_num < 0 || symbol_num >= TABLE_SIZE) {
     return 0;  // false by default
@@ -60,6 +62,7 @@ int lookup(int symbol_num) {
 }
 
 void set(int symbol_num, int value) {
+  printf("set %d %d\n", symbol_num, value);
   if (symbol_num < 0 || symbol_num >= TABLE_SIZE) {
     return;  // do nothing by default
   }
