@@ -53,7 +53,6 @@ yyerror(s) char *s; {
 }
 
 int lookup(int symbol_num) {
-  printf("lookup %d\n", symbol_num);
   if (SYMBOL_TABLE[symbol_num] == UNSET ||
       symbol_num < 0 || symbol_num >= TABLE_SIZE) {
     return 0;  // false by default
@@ -62,7 +61,6 @@ int lookup(int symbol_num) {
 }
 
 void set(int symbol_num, int value) {
-  printf("set %d %d\n", symbol_num, value);
   if (symbol_num < 0 || symbol_num >= TABLE_SIZE) {
     return;  // do nothing by default
   }
