@@ -7,10 +7,10 @@ CFLAGS = -DYYDEBUG=1
 all: calc
 
 clean:
-	rm *.c *.h *.o calc
+	rm lex.yy.c y.tab.c y.tab.h lex.yy.o y.tab.o calc
 
 calc: lex.yy.o y.tab.o calc.c calc.h
-	${CC} -o calc calc.o lex.yy.o y.tab.o ${LIBS}
+	${CC} -o calc calc.c lex.yy.o y.tab.o ${LIBS}
 
 lex.yy.o: lex.yy.c y.tab.h
 
